@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# VAL AUDIOVISUAL Landing Page
 
-## Getting Started
+Landing page premium para VAL AUDIOVISUAL. Esta fase deja lista la base tecnica del proyecto: arquitectura Next.js, TypeScript, Tailwind, componentes base, data temporal, validaciones, endpoint de contacto y reglas de trabajo.
 
-First, run the development server:
+No contiene todavia el diseno visual final, animaciones complejas, 3D ni contenido definitivo del cliente.
+
+## Stack
+
+- Next.js App Router
+- TypeScript
+- Tailwind CSS
+- ESLint
+- motion, GSAP y Lenis preparados para fases posteriores
+- Zod, React Hook Form y resolvers para formularios
+- clsx y tailwind-merge para clases
+- lucide-react para iconos
+
+## Comandos
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run lint
+npm run build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Estructura
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```txt
+src/
+  app/                 App Router, layout, paginas y API routes
+  components/          Layout, secciones, UI, animacion y futura capa 3D
+  config/              Configuracion de sitio, navegacion y SEO
+  data/                Data temporal separada de componentes
+  hooks/               Hooks reutilizables de cliente
+  lib/                 Utilidades, validaciones, contacto y constantes
+  styles/              Tokens, animaciones y utilidades CSS
+  types/               Tipos compartidos
+public/
+  images/ videos/ icons/ brand/
+docs/                  Documentacion de marca y brief
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Convenciones
 
-## Learn More
+- Leer `docs/` antes de modificar identidad, contenido o direccion visual.
+- Usar alias `@/` para imports internos.
+- Separar data, config, UI, secciones y utilidades.
+- Mantener componentes pequenos y tipados.
+- Validar formularios con Zod.
+- No exponer secretos ni API keys.
+- Ejecutar lint y build antes de entregar cambios.
 
-To learn more about Next.js, take a look at the following resources:
+## Estado Actual
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Base tecnica inicial creada. La interfaz visible es un placeholder neutral para validar compilacion y arquitectura.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Proximos Pasos
 
-## Deploy on Vercel
+- Reemplazar data temporal por contenido aprobado.
+- Definir direccion visual final desde `docs/`.
+- Conectar formulario a proveedor aprobado.
+- Planificar animaciones y performance.
+- Evaluar 3D solo si una fase posterior lo solicita.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.

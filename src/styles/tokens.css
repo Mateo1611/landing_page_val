@@ -1,0 +1,14 @@
+:root {
+  /* Brand notes from docs: VAL orange #FD5400; dark cinematic base. Final art direction is pending approval. */
+  --color-background: #0c0c0e;
+  --color-surface: #141418;
+  --color-text: #f6f6f6;
+  --color-muted: #9a9aa2;
+  --color-border: rgba(246, 246, 246, 0.12);
+  --color-accent: #fd5400;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --section-padding: 72px;
+}
+
