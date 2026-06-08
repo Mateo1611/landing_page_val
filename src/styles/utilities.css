@@ -129,6 +129,18 @@
   background: radial-gradient(120% 90% at 50% 40%, transparent 55%, rgba(0, 0, 0, 0.55) 100%);
 }
 
+/* Hero technical grid — faint perspective grid for the Hero backdrop. Masked
+   to a soft radial so it fades into the atmosphere instead of tiling edge to
+   edge. Opacity is controlled by the parent layer (scroll-driven). */
+.hero-grid {
+  background-image:
+    linear-gradient(to right, rgba(246, 246, 246, 0.5) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(246, 246, 246, 0.5) 1px, transparent 1px);
+  background-size: 64px 64px;
+  -webkit-mask-image: radial-gradient(120% 80% at 50% 32%, #000 28%, transparent 74%);
+  mask-image: radial-gradient(120% 80% at 50% 32%, #000 28%, transparent 74%);
+}
+
 /* Media placeholder — diagonal-cross fill standing in for pending assets.
    TODO(assets): replace .media-placeholder blocks with real <video>/<Image>. */
 .media-placeholder {

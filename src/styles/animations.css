@@ -38,6 +38,19 @@
   }
 }
 
+/* Hero ambient light — slow opacity breathing for the background blooms.
+   Opacity-only (no transform) so it never fights the scroll-driven parallax
+   transforms Motion applies to the same layers. */
+@keyframes val-glow {
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
 /* Global reduced-motion guard — neutralizes CSS loops/transitions.
    JS components additionally read useReducedMotion to skip choreography. */
 @media (prefers-reduced-motion: reduce) {
