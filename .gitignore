@@ -49,6 +49,15 @@ Thumbs.db
 # Misc
 *.pem
 
+# Brand source kit — heavy/private, never ship to the public repo (see AGENTS.md)
+docs/brand/
+
+# Heavy media — keep video out of git; host externally and reference by URL
+*.mp4
+*.mov
+*.avi
+*.mkv
+
 # Vercel
 .vercel
 

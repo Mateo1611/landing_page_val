@@ -1,65 +1,80 @@
-# VAL AUDIOVISUAL Landing Page
+# VAL AUDIOVISUAL — Landing Page
 
-Landing page premium para VAL AUDIOVISUAL. Esta fase deja lista la base tecnica del proyecto: arquitectura Next.js, TypeScript, Tailwind, componentes base, data temporal, validaciones, endpoint de contacto y reglas de trabajo.
+Landing page premium para VAL AUDIOVISUAL: estudio audiovisual en Medellín. Una
+sola página, dark, cinematográfica y orientada a conversión (portafolio, CTAs y
+contacto/agenda).
 
-No contiene todavia el diseno visual final, animaciones complejas, 3D ni contenido definitivo del cliente.
+Esta fase implementa la **construcción visual** a partir del mockup de Claude
+Design (`docs/wireframes/`, **Dirección A — "El Reel"**) sobre el sistema de marca
+de `docs/brand/`. Faltan los **assets finales** (videos, fotos, logo SVG) y la
+conexión real de leads — ver `docs/implementation-notes.md`.
 
 ## Stack
 
-- Next.js App Router
-- TypeScript
-- Tailwind CSS
-- ESLint
-- motion, GSAP y Lenis preparados para fases posteriores
-- Zod, React Hook Form y resolvers para formularios
-- clsx y tailwind-merge para clases
-- lucide-react para iconos
+- Next.js (App Router) + React 19 + TypeScript estricto
+- Tailwind CSS v4 (tokens de marca en `@theme`)
+- Motion (microinteracciones + entradas de sección)
+- GSAP ScrollTrigger (escena narrativa del reel)
+- Lenis (scroll suave, sincronizado con GSAP)
+- React Hook Form + Zod (formulario + validación)
+- lucide-react, clsx, tailwind-merge
 
 ## Comandos
 
 ```bash
 npm install
-npm run dev
-npm run lint
-npm run build
+npm run dev     # desarrollo
+npm run lint    # ESLint
+npm run build   # build de producción
 ```
 
 ## Estructura
 
 ```txt
 src/
-  app/                 App Router, layout, paginas y API routes
-  components/          Layout, secciones, UI, animacion y futura capa 3D
-  config/              Configuracion de sitio, navegacion y SEO
-  data/                Data temporal separada de componentes
-  hooks/               Hooks reutilizables de cliente
-  lib/                 Utilidades, validaciones, contacto y constantes
-  styles/              Tokens, animaciones y utilidades CSS
-  types/               Tipos compartidos
-public/
-  images/ videos/ icons/ brand/
-docs/                  Documentacion de marca y brief
+  app/          layout, page (orden Dirección A), api/contact, globals.css
+  components/
+    layout/     Header, Footer, MobileNav, SmoothScrollProvider
+    sections/   una por bloque de la landing (+ ContactForm)
+    ui/         Button, Logo, Section, MediaFrame, VideoCard, Modal, Accordion,
+                Marquee, MagneticButton, RevealText, CountUp, SectionLabel
+    animation/  FadeIn, ParallaxMedia, ScrollProgress, PinnedShowcase
+  config/       site, navigation, seo
+  data/         services, portfolio, testimonials, faqs, process, categories, about
+  hooks/        useMediaQuery, useReducedMotion, useIsMobile
+  lib/          cn, validations, contact, analytics, constants
+  styles/       tokens.css, animations.css, utilities.css
+  types/        service, portfolio, contact
+docs/           brand/ (ignorado en git), brief/, wireframes/, implementation-notes.md
 ```
+
+## Secciones (Dirección A)
+
+Hero → Categorías → Reel → Servicios → Portafolio → Proceso → Sobre VAL →
+Testimonios → CTA → FAQ → Contacto.
 
 ## Convenciones
 
-- Leer `docs/` antes de modificar identidad, contenido o direccion visual.
-- Usar alias `@/` para imports internos.
-- Separar data, config, UI, secciones y utilidades.
-- Mantener componentes pequenos y tipados.
-- Validar formularios con Zod.
-- No exponer secretos ni API keys.
-- Ejecutar lint y build antes de entregar cambios.
+- Leer `docs/` antes de tocar identidad, contenido o dirección visual.
+- Colores/fuentes desde tokens (`@theme` en `globals.css`); no hardcodear hex.
+- Contenido editable en `src/data/`, fuera de los componentes.
+- Imports con alias `@/`. Componentes pequeños y tipados.
+- Validar formularios con Zod (cliente + servidor). No exponer secretos.
+- Respetar `prefers-reduced-motion` en toda animación.
+- Ejecutar `npm run lint` y `npm run build` antes de entregar.
 
-## Estado Actual
+Más detalle (decisiones, marca, animaciones, pendientes) en
+[`docs/implementation-notes.md`](docs/implementation-notes.md).
 
-Base tecnica inicial creada. La interfaz visible es un placeholder neutral para validar compilacion y arquitectura.
+## Estado actual
 
-## Proximos Pasos
+Construcción visual completa y responsive con animaciones controladas. Pendiente:
+assets reales del cliente, datos de contacto reales e integración de leads.
 
-- Reemplazar data temporal por contenido aprobado.
-- Definir direccion visual final desde `docs/`.
-- Conectar formulario a proveedor aprobado.
-- Planificar animaciones y performance.
-- Evaluar 3D solo si una fase posterior lo solicita.
+## Variables de entorno
 
+Copiar `.env.example` a `.env.local`. No subir secretos al repo.
+
+```bash
+NEXT_PUBLIC_SITE_URL=http://localhost:3000
+```

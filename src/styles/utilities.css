@@ -1,6 +1,139 @@
+/* ============================================================
+   VAL AUDIOVISUAL — Brand utility classes
+   Small, reusable visual primitives lifted straight from the
+   Manual de Marca (docs/brand). Kept as plain classes (not Tailwind
+   @apply) because they encode fixed brand geometry — pseudo-element
+   crop marks, film grain, letterbox bars — that would be noisy as
+   inline utilities. Components compose these with Tailwind classes.
+   ============================================================ */
+
+/* Page gutter helpers — standard and wide rhythm from the wireframes. */
 .container-page {
   margin-inline: auto;
-  max-width: 72rem;
+  max-width: var(--maxw);
+  padding-inline: 1.5rem;
+}
+.container-wide {
+  margin-inline: auto;
+  max-width: var(--maxw-wide);
   padding-inline: 1.5rem;
 }
 
+/* Eyebrow / kicker — mono label with a leading rule, brand signature. */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--color-orange);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7em;
+}
+.eyebrow.muted {
+  color: var(--color-fg-muted);
+}
+.eyebrow::before {
+  content: "";
+  width: 24px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.8;
+}
+.eyebrow.no-rule::before {
+  display: none;
+}
+
+/* Viewfinder crop-mark frame — wraps media to read as a camera frame. */
+.frame {
+  position: relative;
+}
+.frame::before,
+.frame::after,
+.frame > .cm-tr,
+.frame > .cm-bl {
+  content: "";
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border: 1px solid var(--line-strong);
+  pointer-events: none;
+  z-index: 3;
+}
+.frame::before {
+  top: -1px;
+  left: -1px;
+  border-right: none;
+  border-bottom: none;
+}
+.frame::after {
+  bottom: -1px;
+  right: -1px;
+  border-left: none;
+  border-top: none;
+}
+.frame > .cm-tr {
+  top: -1px;
+  right: -1px;
+  border-left: none;
+  border-bottom: none;
+}
+.frame > .cm-bl {
+  bottom: -1px;
+  left: -1px;
+  border-right: none;
+  border-top: none;
+}
+
+/* Letterbox — cinematic top/bottom bars for full-bleed media blocks. */
+.letterbox {
+  position: relative;
+  background: var(--color-void);
+  overflow: hidden;
+}
+.letterbox::before,
+.letterbox::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 7%;
+  background: #000;
+  z-index: 2;
+  pointer-events: none;
+}
+.letterbox::before {
+  top: 0;
+}
+.letterbox::after {
+  bottom: 0;
+}
+
+/* Film grain + vignette — fixed overlays that give the premium texture.
+   pointer-events:none so they never block clicks; rendered once in layout. */
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.045;
+  mix-blend-mode: screen;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.vignette {
+  position: fixed;
+  inset: 0;
+  z-index: 59;
+  pointer-events: none;
+  background: radial-gradient(120% 90% at 50% 40%, transparent 55%, rgba(0, 0, 0, 0.55) 100%);
+}
+
+/* Media placeholder — diagonal-cross fill standing in for pending assets.
+   TODO(assets): replace .media-placeholder blocks with real <video>/<Image>. */
+.media-placeholder {
+  background-color: var(--color-surface);
+  background-image:
+    linear-gradient(to top right, transparent calc(50% - 0.6px), rgba(246, 246, 246, 0.12) calc(50% - 0.6px), rgba(246, 246, 246, 0.12) calc(50% + 0.6px), transparent calc(50% + 0.6px)),
+    linear-gradient(to bottom right, transparent calc(50% - 0.6px), rgba(246, 246, 246, 0.12) calc(50% - 0.6px), rgba(246, 246, 246, 0.12) calc(50% + 0.6px), transparent calc(50% + 0.6px));
+}

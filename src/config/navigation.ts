@@ -1,8 +1,14 @@
+/**
+ * Primary navigation for header + mobile drawer.
+ * Hrefs are in-page anchors (single-page landing, per docs/brief §1).
+ * Order mirrors Direction A of the wireframes.
+ */
 export const mainNavigation = [
-  { label: "Reel", href: "#reel" },
-  { label: "Servicios", href: "#services" },
-  { label: "Portafolio", href: "#portfolio" },
-  { label: "Proceso", href: "#process" },
-  { label: "Contacto", href: "#contact" },
+  { label: "Portafolio", href: "#portafolio" },
+  { label: "Servicios", href: "#servicios" },
+  { label: "Proceso", href: "#proceso" },
+  { label: "FAQ", href: "#faq" },
+  { label: "Contacto", href: "#contacto" },
 ] as const;
 
+export type NavItem = (typeof mainNavigation)[number];

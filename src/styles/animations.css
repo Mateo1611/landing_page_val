@@ -1,3 +1,45 @@
+/* ============================================================
+   VAL AUDIOVISUAL — Keyframes + motion guards
+   Only CSS-driven loops live here (marquee, REC blink). Entrance
+   choreography and scroll scenes are handled by Motion / GSAP in
+   the animation components so timing stays isolated and reusable.
+   ============================================================ */
+
+/* Categories marquee — slow, ambient horizontal loop. */
+@keyframes val-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    /* Travels exactly one copy of the track; the row is duplicated in markup. */
+    transform: translateX(-50%);
+  }
+}
+
+/* REC indicator blink — film/recording cue used in the brand system. */
+@keyframes val-blink {
+  50% {
+    opacity: 0.25;
+  }
+}
+
+/* Hero scroll cue — gentle pulse down the guide line. */
+@keyframes val-scrollcue {
+  0% {
+    transform: translateY(-60%);
+    opacity: 0;
+  }
+  40% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(120%);
+    opacity: 0;
+  }
+}
+
+/* Global reduced-motion guard — neutralizes CSS loops/transitions.
+   JS components additionally read useReducedMotion to skip choreography. */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -8,4 +50,3 @@
     transition-duration: 0.01ms !important;
   }
 }
-

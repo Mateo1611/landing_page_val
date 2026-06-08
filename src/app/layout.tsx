@@ -3,6 +3,7 @@ import { Archivo, Archivo_Black, JetBrains_Mono } from "next/font/google";
 import { SmoothScrollProvider } from "@/components/layout/SmoothScrollProvider";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
+import { ScrollProgress } from "@/components/animation/ScrollProgress";
 import { defaultMetadata } from "@/config/seo";
 import "./globals.css";
 
@@ -35,6 +36,10 @@ export default function RootLayout({
       className={`${archivo.variable} ${archivoBlack.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
+        {/* Cinematic texture overlays (decorative, pointer-events:none). */}
+        <div className="grain" aria-hidden />
+        <div className="vignette" aria-hidden />
+        <ScrollProgress />
         <SmoothScrollProvider>
           <Header />
           <main className="flex-1">{children}</main>

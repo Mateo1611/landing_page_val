@@ -1,14 +1,29 @@
-:root {
-  /* Brand notes from docs: VAL orange #FD5400; dark cinematic base. Final art direction is pending approval. */
-  --color-background: #0c0c0e;
-  --color-surface: #141418;
-  --color-text: #f6f6f6;
-  --color-muted: #9a9aa2;
-  --color-border: rgba(246, 246, 246, 0.12);
-  --color-accent: #fd5400;
-  --radius-sm: 6px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
-  --section-padding: 72px;
-}
+/* ============================================================
+   VAL AUDIOVISUAL — Design tokens (non-color)
+   Color + font tokens live in the Tailwind `@theme` block in
+   globals.css so they also generate utility classes. This file
+   holds the rest of the brand system: gradients, easing, radii
+   and layout rhythm. Sourced from docs/brand (Manual de Marca).
+   ============================================================ */
 
+:root {
+  /* Cinematic grade — used for accent washes and the CTA backdrop. */
+  --grade: linear-gradient(120deg, #23218b 0%, #160e3a 38%, #3a1404 72%, #fd5400 100%);
+
+  /* Hairlines (rgba so they sit on any dark surface). */
+  --line: rgba(246, 246, 246, 0.1);
+  --line-strong: rgba(246, 246, 246, 0.2);
+  --line-orange: rgba(253, 84, 0, 0.45);
+
+  /* Motion — the brand's signature easing curves. */
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-soft: cubic-bezier(0.33, 0, 0.2, 1);
+
+  /* Radii + rhythm. */
+  --radius-sm: 7px;
+  --radius-md: 10px;
+  --radius-lg: 18px;
+  --maxw: 1180px;
+  --maxw-wide: 1320px;
+  --section-padding: clamp(72px, 10vw, 120px);
+}
