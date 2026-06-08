@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VAL Audiovisual — Wireframes de la landing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Kalam:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="val-wireframes.css">
+</head>
+<body>
+
+<div class="tool">
+  <div class="brand"><b>VAL<i>.</i> WIREFRAMES</b><span>Landing · estructura</span></div>
+  <div class="tabs">
+    <button class="tab on" data-board="A"><b>A</b> <span class="lbl">· El Reel</span></button>
+    <button class="tab" data-board="B"><b>B</b> <span class="lbl">· El Estudio</span></button>
+    <button class="tab" data-board="C"><b>C</b> <span class="lbl">· El Editorial</span></button>
+  </div>
+  <div class="toggles">
+    <div class="tg on" id="tgNotes"><span class="box"></span><span>Notas de movimiento</span></div>
+    <div class="tg on" id="tgHand"><span class="box"></span><span>Trazo a mano</span></div>
+  </div>
+</div>
+
+<div class="stage" id="stage">
+  <div class="fit" id="fit">
+    <div class="board on" data-board="A">
+      <div class="page" id="page-A"></div>
+      <div class="legend"><b>Dirección A</b><span class="pill">El Reel</span><span>Cine inmersivo — hero a sangre completa, navegación mínima; el scroll se narra como un tráiler. Máximo wow, lectura guiada.</span></div>
+    </div>
+    <div class="board" data-board="B">
+      <div class="page" id="page-B"></div>
+      <div class="legend"><b>Dirección B</b><span class="pill">El Estudio</span><span>Estructura y conversión — portafolio temprano como prueba, servicios en cards, CTAs recurrentes. La opción más clara y comercial.</span></div>
+    </div>
+    <div class="board" data-board="C">
+      <div class="page" id="page-C"></div>
+      <div class="legend"><b>Dirección C</b><span class="pill">El Editorial</span><span>Tipográfico y por capítulos — índice lateral, filas cinematográficas alternadas, aire de revista. La más autoral.</span></div>
+    </div>
+  </div>
+</div>
+
+<script src="wf.js"></script>
+<script src="wf-a.js"></script>
+<script src="wf-b.js"></script>
+<script src="wf-c.js"></script>
+<script>
+  // --- inject boards with a browser chrome on top ---
+  const chromeBar = (name) => `
+    <div class="chrome">
+      <div class="dots"><i></i><i></i><i></i></div>
+      <div class="url">valaudiovisual.com</div>
+      <div class="ch-meta">${name} · 1440</div>
+    </div>`;
+  document.getElementById('page-A').innerHTML = chromeBar('Desktop') + window.BOARDS.A;
+  document.getElementById('page-B').innerHTML = chromeBar('Desktop') + window.BOARDS.B;
+  document.getElementById('page-C').innerHTML = chromeBar('Desktop') + window.BOARDS.C;
+
+  // --- tabs ---
+  const tabs = [...document.querySelectorAll('.tab')];
+  const boards = [...document.querySelectorAll('.board')];
+  const stage = document.getElementById('stage');
+  function show(id){
+    tabs.forEach(t => t.classList.toggle('on', t.dataset.board === id));
+    boards.forEach(b => b.classList.toggle('on', b.dataset.board === id));
+    stage.scrollTop = 0;
+    localStorage.setItem('val_wf_board', id);
+  }
+  tabs.forEach(t => t.addEventListener('click', () => show(t.dataset.board)));
+
+  // --- toggles ---
+  const tgNotes = document.getElementById('tgNotes');
+  const tgHand  = document.getElementById('tgHand');
+  function syncToggles(){
+    document.body.classList.toggle('notes-off', !tgNotes.classList.contains('on'));
+    document.body.classList.toggle('flat', !tgHand.classList.contains('on'));
+  }
+  tgNotes.addEventListener('click', () => { tgNotes.classList.toggle('on'); localStorage.setItem('val_wf_notes', tgNotes.classList.contains('on')); syncToggles(); fit(); });
+  tgHand.addEventListener('click',  () => { tgHand.classList.toggle('on');  localStorage.setItem('val_wf_hand',  tgHand.classList.contains('on'));  syncToggles(); });
+
+  // --- zoom-to-fit (board stage is 1764px wide) ---
+  const fitEl = document.getElementById('fit');
+  function fit(){
+    const avail = window.innerWidth - 48;
+    const z = Math.min(1, avail / 1764);
+    fitEl.style.zoom = z;
+  }
+  window.addEventListener('resize', fit);
+
+  // --- restore state ---
+  (function init(){
+    const b = localStorage.getItem('val_wf_board'); if (b) show(b);
+    if (localStorage.getItem('val_wf_notes') === 'false') tgNotes.classList.remove('on');
+    if (localStorage.getItem('val_wf_hand')  === 'false') tgHand.classList.remove('on');
+    syncToggles();
+    fit();
+  })();
+</script>
+</body>
+</html>
